@@ -11,7 +11,7 @@ data  class ImperialCurrentWeatherEntry(
     override val conditionIconUrl: String,
     @ColumnInfo(name = "windMph")
     override val windSpeed: Double,
-    @ColumnInfo(name = "winDir")
+    @ColumnInfo(name = "windDir")
     override val windDirection: String,
     @ColumnInfo(name = "precipIn")
     override val precipitationVolume: Double,
