@@ -1,4 +1,4 @@
-package com.dwirandyh.forecastmvvm.repository
+package com.dwirandyh.forecastmvvm.data.repository
 
 import androidx.lifecycle.LiveData
 import com.dwirandyh.forecastmvvm.data.db.unitlocalized.UnitSpecificCurrentWeatherEntry

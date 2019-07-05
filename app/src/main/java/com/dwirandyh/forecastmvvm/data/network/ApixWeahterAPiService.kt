@@ -1,8 +1,5 @@
-package com.dwirandyh.forecastmvvm.data
+package com.dwirandyh.forecastmvvm.data.network
 
-import android.content.Context
-import com.dwirandyh.forecastmvvm.data.network.ConnectivityInterceptor
-import com.dwirandyh.forecastmvvm.data.network.ConnectivityInterceptorImpl
 import com.dwirandyh.forecastmvvm.data.network.response.CurrentWeatherResponse
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.Deferred
@@ -27,7 +24,7 @@ interface ApixWeahterAPiService {
     companion object {
         operator  fun invoke(
             connectivityInterceptor: ConnectivityInterceptor
-        ) : ApixWeahterAPiService{
+        ) : ApixWeahterAPiService {
             val requestInterceptor = Interceptor { chain ->
                 val url = chain.request()
                     .url()

@@ -1,15 +1,17 @@
 package com.dwirandyh.forecastmvvm.ui.weather.current
 
 import androidx.lifecycle.ViewModel;
+import com.dwirandyh.forecastmvvm.data.provider.UnitProvider
 import com.dwirandyh.forecastmvvm.internal.UnitSystem
 import com.dwirandyh.forecastmvvm.internal.lazyDeffered
-import com.dwirandyh.forecastmvvm.repository.ForecastRepository
+import com.dwirandyh.forecastmvvm.data.repository.ForecastRepository
 
 class CurrentWeatherViewModel(
-    private val forcastRepository: ForecastRepository
+    private val forcastRepository: ForecastRepository,
+    unitProvider: UnitProvider
 ) : ViewModel() {
 
-    private val unitSystem = UnitSystem.METRIC // get from settings later
+    private val unitSystem = unitProvider.getUnitSystem()
 
     val isMetric: Boolean
         get() = unitSystem == UnitSystem.METRIC

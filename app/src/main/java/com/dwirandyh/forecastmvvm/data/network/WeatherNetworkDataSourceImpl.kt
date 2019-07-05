@@ -3,7 +3,6 @@ package com.dwirandyh.forecastmvvm.data.network
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.dwirandyh.forecastmvvm.data.ApixWeahterAPiService
 import com.dwirandyh.forecastmvvm.data.network.response.CurrentWeatherResponse
 import com.dwirandyh.forecastmvvm.internal.NoConnectivityException
 
