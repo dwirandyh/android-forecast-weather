@@ -82,7 +82,7 @@ dependencies {
     // Preference
     implementation 'androidx.preference:preference:1.0.0'
 
-    // Location / gps
+    // WeatherLocation / gps
     implementation 'com.google.android.gms:play-services-location:17.0.0'
 
     // New material design
