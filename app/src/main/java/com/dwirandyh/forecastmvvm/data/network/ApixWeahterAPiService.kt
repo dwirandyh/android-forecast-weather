@@ -1,6 +1,7 @@
 package com.dwirandyh.forecastmvvm.data.network
 
 import com.dwirandyh.forecastmvvm.data.network.response.CurrentWeatherResponse
+import com.dwirandyh.forecastmvvm.data.network.response.FutureWeatherResponse
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.Deferred
 import okhttp3.Interceptor
@@ -19,6 +20,13 @@ interface ApixWeahterAPiService {
         @Query("q") location: String,
         @Query("lang") languageCode: String = "en"
     ) : Deferred<CurrentWeatherResponse>
+
+    @GET("forecast.json")
+    fun getFutureWeather(
+        @Query("q") location: String,
+        @Query("days") days: Int,
+        @Query("lang") languageCode: String = "en"
+    ): Deferred<FutureWeatherResponse>
 
     // its like static object in java
     companion object {

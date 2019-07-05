@@ -2,7 +2,7 @@ package com.dwirandyh.forecastmvvm.data.repository
 
 import androidx.lifecycle.LiveData
 import com.dwirandyh.forecastmvvm.data.db.entity.WeatherLocation
-import com.dwirandyh.forecastmvvm.data.db.unitlocalized.UnitSpecificCurrentWeatherEntry
+import com.dwirandyh.forecastmvvm.data.db.unitlocalized.current.UnitSpecificCurrentWeatherEntry
 
 interface ForecastRepository {
     // susped for coroutines
