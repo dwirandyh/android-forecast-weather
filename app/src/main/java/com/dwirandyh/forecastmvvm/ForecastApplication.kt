@@ -1,6 +1,7 @@
 package com.dwirandyh.forecastmvvm
 
 import android.app.Application
+import android.content.Context
 import android.preference.PreferenceManager
 import com.dwirandyh.forecastmvvm.data.network.ApixWeahterAPiService
 import com.dwirandyh.forecastmvvm.data.db.ForecastDatabase
@@ -15,6 +16,7 @@ import com.dwirandyh.forecastmvvm.data.provider.UnitProviderImpl
 import com.dwirandyh.forecastmvvm.data.repository.ForecastRepository
 import com.dwirandyh.forecastmvvm.data.repository.ForecastRepositoryImpl
 import com.dwirandyh.forecastmvvm.ui.weather.current.CurrentWeatherViewModelFactory
+import com.google.android.gms.location.LocationServices
 import com.jakewharton.threetenabp.AndroidThreeTen
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
@@ -37,7 +39,8 @@ class ForecastApplication : Application(), KodeinAware {
 
         bind() from singleton { ApixWeahterAPiService(instance()) }
         bind<WeatherNetworkDataSource>() with singleton { WeatherNetworkDataSourceImpl(instance()) }
-        bind<LocationProvider>() with singleton { LocationProviderImpl() }
+        bind() from provider { LocationServices.getFusedLocationProviderClient(instance<Context>()) }
+        bind<LocationProvider>() with singleton { LocationProviderImpl(instance(), instance()) }
         bind<ForecastRepository>() with singleton { ForecastRepositoryImpl(instance(), instance(), instance(), instance()) }
         bind<UnitProvider>() with singleton { UnitProviderImpl(instance()) }
         // provider because it doesn't need to be a singleton
