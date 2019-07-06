@@ -16,6 +16,7 @@ import com.dwirandyh.forecastmvvm.data.provider.UnitProviderImpl
 import com.dwirandyh.forecastmvvm.data.repository.ForecastRepository
 import com.dwirandyh.forecastmvvm.data.repository.ForecastRepositoryImpl
 import com.dwirandyh.forecastmvvm.ui.weather.current.CurrentWeatherViewModelFactory
+import com.dwirandyh.forecastmvvm.ui.weather.future.detail.FutureDetailViewModelFactory
 import com.dwirandyh.forecastmvvm.ui.weather.future.list.FutureListWeatherViewModel
 import com.dwirandyh.forecastmvvm.ui.weather.future.list.FutureListWeatherViewModelFactory
 import com.google.android.gms.location.LocationServices
@@ -23,10 +24,8 @@ import com.jakewharton.threetenabp.AndroidThreeTen
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.androidXModule
-import org.kodein.di.generic.bind
-import org.kodein.di.generic.instance
-import org.kodein.di.generic.provider
-import org.kodein.di.generic.singleton
+import org.kodein.di.generic.*
+import org.threeten.bp.LocalDate
 
 class ForecastApplication : Application(), KodeinAware {
     override val kodein: Kodein = Kodein.lazy {
@@ -50,6 +49,7 @@ class ForecastApplication : Application(), KodeinAware {
         // provider because it doesn't need to be a singleton
         bind() from provider { CurrentWeatherViewModelFactory(instance(), instance()) }
         bind() from provider { FutureListWeatherViewModelFactory(instance(), instance()) }
+        bind() from factory { detailDate: LocalDate -> FutureDetailViewModelFactory(detailDate, instance(), instance())}
     }
 
     override fun onCreate() {

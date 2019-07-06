@@ -6,6 +6,7 @@ import com.dwirandyh.forecastmvvm.data.db.FutureWeatherDao
 import com.dwirandyh.forecastmvvm.data.db.WeatherLocationDao
 import com.dwirandyh.forecastmvvm.data.db.entity.WeatherLocation
 import com.dwirandyh.forecastmvvm.data.db.unitlocalized.current.UnitSpecificCurrentWeatherEntry
+import com.dwirandyh.forecastmvvm.data.db.unitlocalized.future.detail.UnitSpecificDetailFutureWeatherEntry
 import com.dwirandyh.forecastmvvm.data.db.unitlocalized.future.list.UnitSpecificSimpleFutureWeatherEntry
 import com.dwirandyh.forecastmvvm.data.network.FORECAST_DAYS_COUNT
 import com.dwirandyh.forecastmvvm.data.network.WeatherNetworkDataSource
@@ -35,7 +36,7 @@ class ForecastRepositoryImpl(
                 persisFectedCurrentWeather(newCurrentWeather)
             }
 
-            downloadFutureWeather.observeForever{ newFutureWeather ->
+            downloadFutureWeather.observeForever { newFutureWeather ->
                 persistFetchedFutureWeather(newFutureWeather)
             }
         }
@@ -62,6 +63,17 @@ class ForecastRepositoryImpl(
         }
     }
 
+    override suspend fun getFutureWeatherByDate(
+        date: LocalDate,
+        metric: Boolean
+    ): LiveData<out UnitSpecificDetailFutureWeatherEntry> {
+        return withContext(Dispatchers.IO) {
+            initWeahterData()
+            return@withContext if (metric) futureWeatherDao.getDetailWeatherByDateMetric(date)
+            else futureWeatherDao.getDetailWeatherByDateImperial(date)
+        }
+    }
+
     override suspend fun getWeatherLocation(): LiveData<WeatherLocation> {
         return withContext(Dispatchers.IO) {
             return@withContext weatherLocationDao.getLocation()
@@ -78,8 +90,8 @@ class ForecastRepositoryImpl(
         }
     }
 
-    private fun persistFetchedFutureWeather(fetchedWeather: FutureWeatherResponse){
-        fun deleteOldForecastData(){
+    private fun persistFetchedFutureWeather(fetchedWeather: FutureWeatherResponse) {
+        fun deleteOldForecastData() {
             val today = LocalDate.now()
             futureWeatherDao.deleteOldEntries(today)
         }
@@ -116,7 +128,7 @@ class ForecastRepositoryImpl(
         )
     }
 
-    private suspend fun fetchFutureWeather(){
+    private suspend fun fetchFutureWeather() {
         val location = locationProvider.getPreferredLocationString()
         weatherNetworkDataSource.fetchFutureWeather(
             location,
