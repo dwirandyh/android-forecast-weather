@@ -1,7 +1,7 @@
-package com.dwirandyh.forecastmvvm.data.db.unitlocalized.future
+package com.dwirandyh.forecastmvvm.data.db.unitlocalized.future.list
 
 import androidx.room.ColumnInfo
-import java.time.LocalDate
+import org.threeten.bp.LocalDate
 
 class ImperialSimpleFutureWeatherEntry(
     @ColumnInfo(name = "date")

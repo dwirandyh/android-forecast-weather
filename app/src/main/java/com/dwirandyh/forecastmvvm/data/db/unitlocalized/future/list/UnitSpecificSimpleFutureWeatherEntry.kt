@@ -1,6 +1,6 @@
-package com.dwirandyh.forecastmvvm.data.db.unitlocalized.future
+package com.dwirandyh.forecastmvvm.data.db.unitlocalized.future.list
 
-import java.time.LocalDate
+import org.threeten.bp.LocalDate
 
 interface UnitSpecificSimpleFutureWeatherEntry {
     val date: LocalDate

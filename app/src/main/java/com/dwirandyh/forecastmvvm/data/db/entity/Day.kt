@@ -1,4 +1,4 @@
-package com.dwirandyh.forecastmvvm.data.network.response
+package com.dwirandyh.forecastmvvm.data.db.entity
 
 
 import androidx.room.Embedded

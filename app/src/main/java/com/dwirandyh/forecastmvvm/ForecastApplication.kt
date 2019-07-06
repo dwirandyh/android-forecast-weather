@@ -16,6 +16,8 @@ import com.dwirandyh.forecastmvvm.data.provider.UnitProviderImpl
 import com.dwirandyh.forecastmvvm.data.repository.ForecastRepository
 import com.dwirandyh.forecastmvvm.data.repository.ForecastRepositoryImpl
 import com.dwirandyh.forecastmvvm.ui.weather.current.CurrentWeatherViewModelFactory
+import com.dwirandyh.forecastmvvm.ui.weather.future.list.FutureListWeatherViewModel
+import com.dwirandyh.forecastmvvm.ui.weather.future.list.FutureListWeatherViewModelFactory
 import com.google.android.gms.location.LocationServices
 import com.jakewharton.threetenabp.AndroidThreeTen
 import org.kodein.di.Kodein
@@ -33,6 +35,7 @@ class ForecastApplication : Application(), KodeinAware {
         bind() from singleton { ForecastDatabase(instance()) }
         bind() from singleton { instance<ForecastDatabase>().currentWeatherDao() }
         bind() from singleton { instance<ForecastDatabase>().weatherLocationDao() }
+        bind() from singleton { instance<ForecastDatabase>().futureWeatherDao() }
 
         // this is because connectivityinterceptor and there is class witch implement interface is interface and ConnectivityInterceptorImple is implementation of it
         bind<ConnectivityInterceptor>() with singleton { ConnectivityInterceptorImpl(instance()) }
@@ -41,10 +44,12 @@ class ForecastApplication : Application(), KodeinAware {
         bind<WeatherNetworkDataSource>() with singleton { WeatherNetworkDataSourceImpl(instance()) }
         bind() from provider { LocationServices.getFusedLocationProviderClient(instance<Context>()) }
         bind<LocationProvider>() with singleton { LocationProviderImpl(instance(), instance()) }
-        bind<ForecastRepository>() with singleton { ForecastRepositoryImpl(instance(), instance(), instance(), instance()) }
+        bind<ForecastRepository>() with singleton { ForecastRepositoryImpl(instance(), instance(), instance(), instance(), instance()) }
         bind<UnitProvider>() with singleton { UnitProviderImpl(instance()) }
+
         // provider because it doesn't need to be a singleton
         bind() from provider { CurrentWeatherViewModelFactory(instance(), instance()) }
+        bind() from provider { FutureListWeatherViewModelFactory(instance(), instance()) }
     }
 
     override fun onCreate() {

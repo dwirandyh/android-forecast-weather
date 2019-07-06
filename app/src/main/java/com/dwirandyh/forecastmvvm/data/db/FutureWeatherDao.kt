@@ -6,8 +6,8 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.dwirandyh.forecastmvvm.data.db.entity.FutureWeatherEntry
-import com.dwirandyh.forecastmvvm.data.db.unitlocalized.future.ImperialSimpleFutureWeatherEntry
-import com.dwirandyh.forecastmvvm.data.db.unitlocalized.future.MetricSimpleFutureWeatherEntry
+import com.dwirandyh.forecastmvvm.data.db.unitlocalized.future.list.ImperialSimpleFutureWeatherEntry
+import com.dwirandyh.forecastmvvm.data.db.unitlocalized.future.list.MetricSimpleFutureWeatherEntry
 import org.threeten.bp.LocalDate
 
 @Dao

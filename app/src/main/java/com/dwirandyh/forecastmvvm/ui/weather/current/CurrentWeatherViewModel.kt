@@ -5,22 +5,16 @@ import com.dwirandyh.forecastmvvm.data.provider.UnitProvider
 import com.dwirandyh.forecastmvvm.internal.UnitSystem
 import com.dwirandyh.forecastmvvm.internal.lazyDeffered
 import com.dwirandyh.forecastmvvm.data.repository.ForecastRepository
+import com.dwirandyh.forecastmvvm.ui.base.WeatherViewModel
 
 class CurrentWeatherViewModel(
     private val forcastRepository: ForecastRepository,
     unitProvider: UnitProvider
-) : ViewModel() {
-
-    private val unitSystem = unitProvider.getUnitSystem()
-
-    val isMetric: Boolean
-        get() = unitSystem == UnitSystem.METRIC
+) : WeatherViewModel(forcastRepository, unitProvider) {
 
     val weather by lazyDeffered {
-        forcastRepository.getCurrentWeather(isMetric)
+        forcastRepository.getCurrentWeather(isMetricUnit)
     }
 
-    val weatherLocation by lazyDeffered {
-        forcastRepository.getWeatherLocation()
-    }
+
 }
